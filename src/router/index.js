@@ -1,14 +1,48 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import login from '../views/login.vue'
+// import table from '../views/table.vue'
+
+const scTable = () => import('../views/table')
+const index = () => import('../views/index')
+const scManage = () => import('../views/scManage')
+const student = () => import('../views/student')
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
+    name: 'login',
+    component: login
+  },
+  {
+    path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '/index',
+        name: '首页',
+        component: index
+      },
+      {
+        path: '/scTable',
+        name: '学生成绩查询',
+        component: scTable
+      },
+      {
+        path: '/scManage',
+        name: '导入学生成绩',
+        component: scManage
+      },
+      {
+        path: '/student',
+        name: '学生成绩统计',
+        component: student
+      },
+    ]
   },
   {
     path: '/about',
